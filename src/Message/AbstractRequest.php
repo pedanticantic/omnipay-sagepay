@@ -354,4 +354,50 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
         return $result;
     }
+
+    public function getContinuousAccountAvailable()
+    {
+        return $this->getParameter('continuousAccountAvailable');
+    }
+
+    public function isContinuousAccountAvailable()
+    {
+        return !!$this->getContinuousAccountAvailable();
+    }
+
+    /**
+     * Pass in a truthy or falsey value that says whether or not the merchant account supports repeat
+     * transactions (continuous authority).
+     * I would have cast the argument to boolean before storing it, but the unit tests insist
+     * that the getter returns exactly the same value, so I couldn't.
+     * @param $value
+     * @return $this
+     */
+    public function setContinuousAccountAvailable($value)
+    {
+        return $this->setParameter('continuousAccountAvailable', $value);
+    }
+
+    public function getMotoAccountAvailable()
+    {
+        return $this->getParameter('motoAccountAvailable');
+    }
+
+    public function isMotoAccountAvailable()
+    {
+        return !!$this->getMotoAccountAvailable();
+    }
+
+    /**
+     * Pass in a truthy or falsey value that says whether or not the merchant account supports telephone (Moto)
+     * transactions.
+     * I would have cast the argument to boolean before storing it, but the unit tests insist
+     * that the getter returns exactly the same value, so I couldn't.
+     * @param $value
+     * @return $this
+     */
+    public function setMotoAccountAvailable($value)
+    {
+        return $this->setParameter('motoAccountAvailable', $value);
+    }
 }

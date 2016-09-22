@@ -22,6 +22,8 @@ class DirectGateway extends AbstractGateway
             'vendor' => '',
             'testMode' => false,
             'referrerId' => '',
+            'continuousAccountAvailable' => false,
+            'motoAccountAvailable' => false,
         );
     }
 
@@ -36,7 +38,7 @@ class DirectGateway extends AbstractGateway
     {
         return $this->setParameter('vendor', $value);
     }
-    
+
     public function setUseOldBasketFormat($value)
     {
         $value = (bool)$value;
@@ -115,5 +117,41 @@ class DirectGateway extends AbstractGateway
     public function repeatPurchase(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\SagePay\Message\DirectRepeatPurchaseRequest', $parameters);
+    }
+
+    public function getContinuousAccountAvailable()
+    {
+        return $this->getParameter('continuousAccountAvailable');
+    }
+
+    /**
+     * Pass in a truthy or falsey value that says whether or not the merchant account supports repeat
+     * transactions (continuous authority).
+     * I would have cast the argument to boolean before storing it, but the unit tests insist
+     * that the getter returns exactly the same value, so I couldn't.
+     * @param $value
+     * @return $this
+     */
+    public function setContinuousAccountAvailable($value)
+    {
+        return $this->setParameter('continuousAccountAvailable', $value);
+    }
+
+    public function getMotoAccountAvailable()
+    {
+        return $this->getParameter('motoAccountAvailable');
+    }
+
+    /**
+     * Pass in a truthy or falsey value that says whether or not the merchant account supports telephone (Moto)
+     * transactions.
+     * I would have cast the argument to boolean before storing it, but the unit tests insist
+     * that the getter returns exactly the same value, so I couldn't.
+     * @param $value
+     * @return $this
+     */
+    public function setMotoAccountAvailable($value)
+    {
+        return $this->setParameter('motoAccountAvailable', $value);
     }
 }

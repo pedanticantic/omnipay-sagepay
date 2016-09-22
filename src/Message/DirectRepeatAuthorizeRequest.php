@@ -32,6 +32,11 @@ class DirectRepeatAuthorizeRequest extends AbstractRequest
         $data['RelatedSecurityKey'] = $this->getRelatedSecurityKey();
         $data['RelatedTxAuthNo'] = $this->getRelatedTxAuthNo();
 
+        // Account type should default to 'C' for "repeat", but only if the merchant account supports it.
+        if ($this->isContinuousAccountAvailable()) {
+            $data['AccountType'] = 'C';
+        }
+
         // Some details in the card can be changed for the repeat purchase.
         $card = $this->getCard();
 
